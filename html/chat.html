@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title>RTI Chat</title>
+        <script src="https://get.inhumatesystems.com/js/rti.js"></script>
+    </head>
+    <body>
+        <form>
+            <input type="text" id="name" placeholder="Name" size="10" autofocus />
+            <input type="text" id="message" placeholder="Type message here..." size="40" />
+            <button type="submit">Send</button>
+        </form>
+        <div id="messages"></div>
+
+        <script>
+            // Get a hold of UI elements so that we can interact with them
+            const form = document.querySelector("form")
+            const nameInput = document.getElementById("name")
+            const messageInput = document.getElementById("message")
+            const messagesDiv = document.getElementById("messages")
+
+            // Connect to the RTI and show messages when connected or when errors occur
+            const rti = new RTI.Client({ application: "Chat RTI Tutorial" })
+            rti.on("connect", () => (messagesDiv.innerText += `Connected to RTI at ${rti.url}\n`))
+            rti.on("error", (error) => (messagesDiv.innerText += `RTI error: ${error}\n`))
+
+            // When the form is submitted, publish the message to the "chat" channel
+            form.onsubmit = (event) => {
+                event.preventDefault()
+                if (messageInput.value) {
+                    const message = `${nameInput.value || "Anonymous"}: ${messageInput.value}`
+                    rti.publishText("chat", message)
+                }
+                messageInput.value = ""
+                messageInput.focus()
+            }
+
+            // Subscribe to the "chat" channel and display messages in the div
+            rti.subscribeText("chat", (message) => {
+                messagesDiv.innerText += message + "\n"
+            })
+        </script>
+    </body>
+</html>

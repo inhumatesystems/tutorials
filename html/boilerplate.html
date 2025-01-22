@@ -1,0 +1,13 @@
+<html>
+    <head>
+        <script src="https://get.inhumatelabs.com/js/rti.js"></script>
+    </head>
+    <body>
+        RTI App
+        <script>
+            const rti = new RTI.Client({ application: "RTI App" })
+            rti.on("connect", () => console.log("Connected to RTI", rti.url))
+            rti.on("error", (error) => console.error("RTI error", error))
+        </script>
+    </body>
+</html>
