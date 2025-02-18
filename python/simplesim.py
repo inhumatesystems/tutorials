@@ -10,10 +10,6 @@ pygame.display.set_caption("SimpleSim")
 screen = pygame.display.set_mode((500, 500))
 clock = pygame.time.Clock()
 
-# Let's use degrees instead of radians
-def sin(degrees): return math.sin(degrees * math.pi / 180)
-def cos(degrees): return math.cos(degrees * math.pi / 180)
-
 # Player settings
 player_color = (0, 150, 200)
 player_speed = 3
@@ -23,6 +19,10 @@ player_rotation_speed = 3
 player_x = random.randint(10, 490)
 player_y = random.randint(10, 490)
 player_heading = random.randint(0, 360)
+
+# Let's use degrees instead of radians
+def sin(degrees): return math.sin(degrees * math.pi / 180)
+def cos(degrees): return math.cos(degrees * math.pi / 180)
 
 # Set up the RTI connection
 rti = RTI.Client("SimpleSim")
@@ -83,8 +83,8 @@ try:
         position.local.x = player_x - 250
         position.local.z = 250 - player_y
         position.euler_rotation.yaw = player_heading
-        position.geodetic.latitude = 59.36 + (250 - player_y) / 111320
-        position.geodetic.longitude = 17.96 + (player_x - 250) / 56733
+        position.geodetic.latitude = 59.36 + (250 - player_y) / 111300
+        position.geodetic.longitude = 17.96 + (player_x - 250) / 57500
         rti.publish(RTI.channel.position, position)
 finally:
     entity.deleted = True
