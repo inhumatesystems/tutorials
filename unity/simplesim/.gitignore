@@ -1,0 +1,17 @@
+Library/
+*.csproj
+*.sln
+Logs/
+Temp/
+Build/
+Builds/
+UserSettings/
+obj/
+.vscode/
+tmp-update-dependencies/
+mono_crash*
+/protobuf/
+.DS_Store
+Packages/com.unity.asset-store-tools
+Packages/com.inhumatesystems.rti/Plugins/NaughtyAttributes/
+Packages/com.inhumatesystems.rti/Plugins/NaughtyAttributes.meta
