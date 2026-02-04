@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://08vc14rukhvt"]
+
+[ext_resource type="Script" uid="uid://cot8ew1ltg1w5" path="res://actors/player_controller.gd" id="1_mvpqy"]
+[ext_resource type="Material" uid="uid://dj1gy4gi4gawr" path="res://materials/player_material.tres" id="1_niuxy"]
+[ext_resource type="PackedScene" uid="uid://lupg5klccufx" path="res://actors/box.tscn" id="2_1yqc4"]
+[ext_resource type="Script" uid="uid://c3pxlhqihjsch" path="res://addons/inhumate_rti/src/RTIEntity.cs" id="4_kjkj0"]
+[ext_resource type="Script" uid="uid://teixad3ck0r8" path="res://addons/inhumate_rti/src/RTIPosition.cs" id="5_tue77"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cp522"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_cp522"]
+
+[node name="Player" type="RigidBody3D" unique_id=2140119321]
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+mass = 10.0
+linear_damp = 10.0
+angular_damp = 10.0
+script = ExtResource("1_mvpqy")
+box_scene = ExtResource("2_1yqc4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=902579404]
+shape = SubResource("CapsuleShape3D_cp522")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=207117634]
+mesh = SubResource("CapsuleMesh_cp522")
+surface_material_override/0 = ExtResource("1_niuxy")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1072635133]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5684434, 0)
+
+[node name="RTIEntity" type="Node" parent="." unique_id=685238880]
+script = ExtResource("4_kjkj0")
+Type = "player"
+Category = 2
+Domain = 2
+Lvc = 2
+Size = Vector3(1, 2, 1)
+Color = Color(0.36078432, 0.6666667, 0.7176471, 1)
+metadata/_custom_type_script = "uid://c3pxlhqihjsch"
+
+[node name="RTIPosition" type="Node" parent="." unique_id=1059653308]
+script = ExtResource("5_tue77")
+MinPublishInterval = 0.1
+metadata/_custom_type_script = "uid://teixad3ck0r8"

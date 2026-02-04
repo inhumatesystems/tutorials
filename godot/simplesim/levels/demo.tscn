@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://drdjuqiltouj6"]
+
+[ext_resource type="Script" uid="uid://hoghphvwuped" path="res://addons/inhumate_rti/src/RTISpawner.cs" id="1_scm0b"]
+[ext_resource type="PackedScene" uid="uid://lupg5klccufx" path="res://actors/box.tscn" id="2_k4nkg"]
+[ext_resource type="PackedScene" uid="uid://08vc14rukhvt" path="res://actors/player.tscn" id="3_6mm5n"]
+[ext_resource type="PackedScene" uid="uid://wipvhmwbeu7v" path="res://actors/player_playback.tscn" id="3_rip3i"]
+
+[node name="Demo" type="Node3D" unique_id=1461887313]
+
+[node name="Arena" type="CSGCombiner3D" parent="." unique_id=101443131]
+use_collision = true
+
+[node name="Floor" type="CSGBox3D" parent="Arena" unique_id=1042250365]
+size = Vector3(20, 1, 20)
+
+[node name="Wall1" type="CSGBox3D" parent="Arena" unique_id=1168930150]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 10.5)
+size = Vector3(20, 2, 1)
+
+[node name="Wall2" type="CSGBox3D" parent="Arena" unique_id=382250219]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -10.5)
+size = Vector3(20, 2, 1)
+
+[node name="Wall3" type="CSGBox3D" parent="Arena" unique_id=915801028]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 1.5, 0)
+size = Vector3(1, 2, 20)
+
+[node name="Wall4" type="CSGBox3D" parent="Arena" unique_id=200456113]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 1.5, 0)
+size = Vector3(1, 2, 20)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1112300321]
+transform = Transform3D(0.9844726, -0.12533173, 0.12290541, 0, 0.70016193, 0.7139841, -0.17553855, -0.7028977, 0.6892902, 0, 9.965754, 0.6480632)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=240976714]
+transform = Transform3D(1, 0, 0, 0, 0.7876668, 0.6161015, 0, -0.6161015, 0.7876668, 0, 9.724091, 15.433096)
+
+[node name="Spawnpoints" type="Node" parent="." unique_id=523738880]
+
+[node name="Spawn1" type="Node3D" parent="Spawnpoints" unique_id=1709473920]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6509695, 6.9964266)
+
+[node name="Spawn2" type="Node3D" parent="Spawnpoints" unique_id=652733265]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.685832, 2.1577656, 0)
+
+[node name="Spawn3" type="Node3D" parent="Spawnpoints" unique_id=2046752572]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9203653, 1.5965772, -7.6971765)
+
+[node name="RTISpawner" type="Node" parent="." unique_id=664171689 node_paths=PackedStringArray("PlayerSpawnPoints")]
+script = ExtResource("1_scm0b")
+SpawnableEntities = Dictionary[String, PackedScene]({
+"box": ExtResource("2_k4nkg"),
+"player": ExtResource("3_rip3i")
+})
+Player = ExtResource("3_6mm5n")
+PlayerSpawnPoints = [NodePath("../Spawnpoints/Spawn1"), NodePath("../Spawnpoints/Spawn2"), NodePath("../Spawnpoints/Spawn3")]
+metadata/_custom_type_script = "uid://hoghphvwuped"

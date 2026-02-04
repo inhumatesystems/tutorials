@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://lupg5klccufx"]
+
+[ext_resource type="Material" uid="uid://sxcgr5pavfgt" path="res://materials/box_material.tres" id="1_5gub7"]
+[ext_resource type="Script" uid="uid://c3pxlhqihjsch" path="res://addons/inhumate_rti/src/RTIEntity.cs" id="2_iuaq3"]
+[ext_resource type="Script" uid="uid://teixad3ck0r8" path="res://addons/inhumate_rti/src/RTIPosition.cs" id="3_iovtx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3dhgd"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3dhgd"]
+
+[node name="Box" type="RigidBody3D" unique_id=1232196896]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=356802096]
+shape = SubResource("BoxShape3D_3dhgd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1152067311]
+mesh = SubResource("BoxMesh_3dhgd")
+surface_material_override/0 = ExtResource("1_5gub7")
+
+[node name="RTIEntity" type="Node" parent="." unique_id=958261922]
+script = ExtResource("2_iuaq3")
+Type = "box"
+Category = 1
+Domain = 4
+Lvc = 3
+Size = Vector3(1, 1, 1)
+Color = Color(0.16862746, 0.36862746, 0.40784314, 1)
+metadata/_custom_type_script = "uid://c3pxlhqihjsch"
+
+[node name="RTIPosition" type="Node" parent="." unique_id=163067613]
+script = ExtResource("3_iovtx")
+MinPublishInterval = 0.1
+metadata/_custom_type_script = "uid://teixad3ck0r8"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RTISettings" format=3 uid="uid://bgw02i0ihafja"]
+
+[ext_resource type="PackedScene" uid="uid://blfs8jxwh1843" path="res://addons/inhumate_rti/content/defaulthome.tscn" id="1_3vsh1"]
+[ext_resource type="Script" uid="uid://bafyw27prgpb8" path="res://addons/inhumate_rti/src/RTIScenario.cs" id="2_gqg3r"]
+[ext_resource type="Resource" uid="uid://s0ysmuhoeeyo" path="res://scenarios/demo_scenario.tres" id="3_gqg3r"]
+[ext_resource type="Script" uid="uid://ccx3brdm2sdun" path="res://addons/inhumate_rti/src/RTISettings.cs" id="3_lvfel"]
+
+[resource]
+script = ExtResource("3_lvfel")
+HomeScene = ExtResource("1_3vsh1")
+Scenarios = Array[ExtResource("2_gqg3r")]([ExtResource("3_gqg3r")])

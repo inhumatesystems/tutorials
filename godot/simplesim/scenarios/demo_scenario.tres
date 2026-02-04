@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RTIScenario" format=3 uid="uid://s0ysmuhoeeyo"]
+
+[ext_resource type="PackedScene" uid="uid://drdjuqiltouj6" path="res://levels/demo.tscn" id="1_emtab"]
+[ext_resource type="Script" uid="uid://bafyw27prgpb8" path="res://addons/inhumate_rti/src/RTIScenario.cs" id="1_tl43w"]
+
+[resource]
+script = ExtResource("1_tl43w")
+Name = "Demo"
+Scene = ExtResource("1_emtab")
+Description = "test."
+metadata/_custom_type_script = "uid://bafyw27prgpb8"
