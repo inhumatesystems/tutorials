@@ -1,0 +1,37 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "0.2.0",
+	"EngineVersion": "5.6.0",
+	"FriendlyName": "Inhumate RTI",
+	"Description": "Inhumate RTI - Unreal Engine Integration Plugin",
+	"Category": "Other",
+	"CreatedBy": "Inhumate",
+	"CreatedByURL": "https://inhumatesystems.com",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"FabURL": "com.epicgames.launcher://ue/Fab/product/a56736ed-3e28-48fc-be0c-234c320f28d0",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"Installed": false,
+	"SupportedTargetPlatforms": [ "Linux", "Win64", "Mac" ],
+	"Modules": [
+		{
+			"Name": "InhumateRTI",
+			"Type": "Runtime",
+			"LoadingPhase": "PreLoadingScreen",
+			"PlatformAllowList": [ "Linux", "Win64", "Mac" ],
+			"WhitelistPlatforms": [ "Linux", "Win64", "Mac" ],
+			"SupportedTargetPlatforms": [ "Linux", "Win64", "Mac" ]
+		},
+        {
+            "Name": "InhumateRTIEditor",
+            "Type": "UncookedOnly",
+            "LoadingPhase": "PreDefault",
+			"PlatformAllowList": [ "Linux", "Win64", "Mac" ],
+			"WhitelistPlatforms": [ "Linux", "Win64", "Mac" ],
+			"SupportedTargetPlatforms": [ "Linux", "Win64", "Mac" ]
+        }
+	]
+}
