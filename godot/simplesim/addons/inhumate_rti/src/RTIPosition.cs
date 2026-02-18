@@ -86,18 +86,18 @@ namespace Inhumate.GodotRTI {
             if (position.Local != null) {
                 previousPositionTime = lastPositionTime;
                 previousPosition = lastPosition;
-                lastPositionTime = Time.GetTicksMsec() / 1000.0;
+                lastPositionTime = physicsTime;
                 if (RTIToLocalPosition != null) {
                     lastPosition = RTIToLocalPosition(position.Local);
                 } else {
-                    lastPosition = new Vector3(position.Local.X, position.Local.Y, position.Local.Z);
+                    lastPosition = new Vector3(position.Local.X, position.Local.Y, -position.Local.Z);
                 }
                 if (!Interpolate || ReceiveCount == 1) node.GlobalPosition = previousPosition = lastPosition;
             } else if (position.Geodetic != null) {
                 if (GeodeticToLocal != null) {
                     previousPositionTime = lastPositionTime;
                     previousPosition = lastPosition;
-                    lastPositionTime = Time.GetTicksMsec() / 1000.0;
+                    lastPositionTime = physicsTime;
                     lastPosition = GeodeticToLocal(position.Geodetic);
                     if (!Interpolate || ReceiveCount == 1) node.GlobalPosition = previousPosition = lastPosition;
                 } else if (!warnedGeodetic) {
@@ -108,8 +108,8 @@ namespace Inhumate.GodotRTI {
             if (position.LocalRotation != null) {
                 previousRotationTime = lastRotationTime;
                 previousRotation = lastRotation;
-                lastRotationTime = Time.GetTicksMsec() / 1000.0;
-                lastRotation = new Quaternion(position.LocalRotation.X, position.LocalRotation.Y, position.LocalRotation.Z, position.LocalRotation.W);
+                lastRotationTime = physicsTime;
+                lastRotation = new Quaternion(position.LocalRotation.X, position.LocalRotation.Y, -position.LocalRotation.Z, -position.LocalRotation.W);
                 if (!Interpolate || ReceiveCount == 1) {
                     SetNodeRotation(node, lastRotation);
                     previousRotation = lastRotation;
@@ -117,7 +117,7 @@ namespace Inhumate.GodotRTI {
             } else if (position.EulerRotation != null) {
                 previousRotationTime = lastRotationTime;
                 previousRotation = lastRotation;
-                lastRotationTime = Time.GetTicksMsec() / 1000.0;
+                lastRotationTime = physicsTime;
                 if (RTIToLocalEuler != null) {
                     lastRotation = RTIToLocalEuler(position.EulerRotation);
                 } else {
@@ -247,10 +247,10 @@ namespace Inhumate.GodotRTI {
                 if (physicsTime - lastRotationTime < MaxInterpolateInterval) {
                     if (lastRotationTime > 0 && lastAngularVelocity.HasValue) {
                         // Interpolate using angular velocity
-                        targetRotation = Quaternion.FromEuler(lastAngularVelocity.Value * (float)(Time.GetTicksMsec() / 1000.0 - lastRotationTime)) * lastRotation;
+                        targetRotation = Quaternion.FromEuler(lastAngularVelocity.Value * (Mathf.Pi / 180.0f) * (float)(physicsTime - lastRotationTime)) * lastRotation;
                     } else if (lastRotationTime > 0 && previousRotationTime > 0 && lastRotationTime - previousRotationTime > 1e-5f && lastRotationTime - previousRotationTime < MinPublishInterval * 2.5f) {
                         // or else slerp based on last and previous rotation
-                        targetRotation = lastRotation.Slerp(lastRotation * previousRotation.Inverse() * lastRotation, (float)Mathf.Clamp((Time.GetTicksMsec() / 1000.0 - lastRotationTime) / (lastRotationTime - previousRotationTime), 0, 1));
+                        targetRotation = lastRotation.Slerp(lastRotation * previousRotation.Inverse() * lastRotation, (float)Mathf.Clamp((physicsTime - lastRotationTime) / (lastRotationTime - previousRotationTime), 0, 1));
                     } else if (lastRotationTime > 0) {
                         // or else just set rotation
                         targetRotation = lastRotation;
@@ -272,7 +272,7 @@ namespace Inhumate.GodotRTI {
         private static void SetNodeRotation(Node3D node, Quaternion quat) {
             // some workaround code here because Godot Basis messes with both rotation and scale
             var scale = node.Scale;
-            node.GlobalBasis = new Basis(quat);
+            node.SetDeferred(Node3D.PropertyName.GlobalBasis, new Basis(quat));
             node.Scale = scale;
         }
 
@@ -313,13 +313,13 @@ namespace Inhumate.GodotRTI {
         public static void ApplyPositionMessageToNode(EntityPosition position, Node3D node) {
             if (position.Local != null) {
                 if (RTIToLocalPosition != null) {
-                    node.GlobalPosition = RTIToLocalPosition(position.Local);
+                    node.SetDeferred(Node3D.PropertyName.GlobalPosition, RTIToLocalPosition(position.Local));
                 } else {
-                    node.GlobalPosition = new Vector3(position.Local.X, position.Local.Y, position.Local.Z);
+                    node.SetDeferred(Node3D.PropertyName.GlobalPosition, new Vector3(position.Local.X, position.Local.Y, position.Local.Z));
                 }
             } else if (position.Geodetic != null) {
                 if (GeodeticToLocal != null) {
-                    node.GlobalPosition = GeodeticToLocal(position.Geodetic);
+                    node.SetDeferred(Node3D.PropertyName.GlobalPosition, GeodeticToLocal(position.Geodetic));
                 } else if (!warnedGeodetic) {
                     GD.Print("Cannot use geodetic position, RTIPosition.GeodeticToLocal not set");
                     warnedGeodetic = true;

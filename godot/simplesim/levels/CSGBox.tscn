@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://84ojvt40e6cm"]
+
+[ext_resource type="Script" uid="uid://bywc1bxm5f0cb" path="res://addons/inhumate_rti/src/RTIGeometry.cs" id="1_dkr8t"]
+
+[node name="CSGBox3D" type="CSGBox3D" unique_id=515178764]
+
+[node name="RTIGeometry" type="Node" parent="." unique_id=1126345261]
+script = ExtResource("1_dkr8t")
+metadata/_custom_type_script = "uid://bywc1bxm5f0cb"

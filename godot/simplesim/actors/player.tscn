@@ -42,4 +42,5 @@ metadata/_custom_type_script = "uid://c3pxlhqihjsch"
 [node name="RTIPosition" type="Node" parent="." unique_id=1059653308]
 script = ExtResource("5_tue77")
 MinPublishInterval = 0.1
+Receive = false
 metadata/_custom_type_script = "uid://teixad3ck0r8"
